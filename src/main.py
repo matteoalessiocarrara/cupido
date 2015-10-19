@@ -52,9 +52,12 @@ print "Creazione variabili fittizie...                                          
 print "Scaricamento lista dei partecipanti..."
 
 membri = fb.get_group(gid).members(verbose=True)
+membri_len = len(membri)
 
 print "Ricerca tette in corso..."
 
 for profilo in membri:
+	stdout.write(str(membri.index(profilo)) + "/" + str(membri_len) + "...\r")
+	stdout.flush()
 	if fb.get_profile(profilo['profile_href']).gender() == fb.gender_str("female"):
 		print " * " + profilo['profile_href'], "(" + profilo['name'] + ")"
