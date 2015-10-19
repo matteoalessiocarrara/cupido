@@ -19,6 +19,8 @@
 #  MA 02110-1301, USA.
 
 from lib.HTML_Facebook_API.src import htmlfbapi
+from sys import stdout
+from getpass import getpass
 
 print ""
 print "  █████▒  █████▒ ██▓ ███▄    █ ▓█████▄ "
@@ -36,22 +38,23 @@ print "FigaFind v. 0.6.9"
 print ""
 
 user = raw_input("Username: ")
-passw = raw_input("Password: ")
+passw = getpass()
 gid = raw_input("Gruppo (id): ")
+
+stdout.write("\nLogin in corso...")
+stdout.flush()
 
 fb = htmlfbapi.Facebook(user, passw)
 
-print ""
+print "                                                        [ OK ] "
 print "Attivazione modalità M.D.F...                                            [ OK ] "
 print "Creazione variabili fittizie...                                          [ OK ] "
-print "Scaricamento lista dei partecipanti...",
+print "Scaricamento lista dei partecipanti..."
 
-membri = fb.get_group(gid).members()
+membri = fb.get_group(gid).members(verbose=True)
 
-print "                                  [ OK ]"
 print "Ricerca tette in corso..."
 
 for profilo in membri:
-	#TODO Usare variabile per "gender"
-	if fb.get_profile(profilo['profile_href']).gender() == "Donna":
+	if fb.get_profile(profilo['profile_href']).gender() == fb.gender_str("female"):
 		print " * " + profilo['profile_href'], "(" + profilo['name'] + ")"

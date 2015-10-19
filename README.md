@@ -31,6 +31,7 @@ In ./src/ c'è un piccolo programma (gid.py) che estrae il gid da un url, ma con
 
 ## Errori ##
 
+* "Non prende la password!", in main.py: la password non viene ripetuta sullo schermo per sicurezza, non è un bug
 * Output non atteso con gid.py: mettere l'url fra ""
 * Errore di login con unix_main, anche se la password è giusta: mettere la password fra ""
 
