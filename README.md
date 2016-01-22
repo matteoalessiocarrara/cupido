@@ -4,132 +4,67 @@ API non ufficiali basate sul codice HTML di Facebook
 
 ## Cosa è questa libreria ##
 
-Con questa libreria il computer dovrebbe poter fare tutto quello che un uomo
-può fare su facebook.
-
-Il funzionamento è semplice: si ha un "browser virtuale" (htmlfbapi.Facebook)
-dove è già stato fatto il login su Facebook.  
-Il "browser" può essere gestito manualmente, ma per rendere semplice l'utilizzo
-della libreria sono stati scritti dei metodi che lo gestiscono automaticamente.
-Per esempio, per conoscere la lingua del profilo non è necessario impazzire
-con il codice HTML, basta usare il metodo htmlfbapi.Facebook.get_lang() che gestirà
-automaticamente il browser per recuperare la lingua.  
-Sono anche stati creati degli oggetti che rappresentano oggetti su Facebook:
-htmlfbapi.Group per esempio rappresenta un gruppo, mentre htmlfbapi.Profile
-rappresenta un profilo. Come gli oggetti rappresentati, anche questi hanno delle
-proprietà (attributi) e delle azioni (metodi). Per esempio, un oggetto
-htmlfbapi.Group ha una proprietà (attributo) members, che rappresenta la lista
-dei partecipanti.  
-Purtroppo, questa libreria può essere molto potente ma anche molto instabile:
-tutti i metodi si basano su delle "costanti" nel codice HTML, che proprio costanti
-non sono, visto che Facebook le può cambiare da un momento all'altro. Anche se,
-fortunatamente, questo non succede molto spesso.
+Con questa libreria il computer dovrebbe poter fare tutto ciò che un uomo può fare su facebook.  
+Semplificando, il funzionamento è questo: dopo aver fatto il login, si possono scaricare pagine da Facebook ed estrarre i dati, oppure si possono inviare dati. In pratica funziona come un browser, ma qui è controllato dal computer e non dall'utente.  
+Purtroppo, questa libreria può essere molto potente (si può fare veramente di tutto!) ma anche molto instabile: si basa tutto su delle "costanti" nel codice HTML, che proprio costanti non sono, visto che Facebook lo può cambiare da un giorno all'altro.
 
 ## Esempio ##
 
-(Questo esempio, scritto meglio, è anche in src/esempio.py2)
+Stampa il nome di tutti i membri di un gruppo
 
 ```python
-# file della libreria
 import htmlfbapi
-import version
 
-import sys
+email = ""
+passw = ""
+# id del gruppo, una cosa simile a 1484239995227666 (si trova nell'url di un gruppo)
+gid = ""
 
-if len(sys.argv) != 2 +1:
-	print "Uso:", argv[0], "email password"
-	exit()
+# connessione a fb
+profilo1 = htmlfbapi.Facebook(email, passw)
 
-email, password = sys.argv[1:]
+# il gruppo con id "gid" visto da profilo1
+gruppo = profilo1.get_group(gid) 
 
-print "HTMLFBAPI v.", version.version_str
+# scarica i membri
+profili = gruppo.members()
 
-if version.MAJOR != 3:
-	print "Versione della libreria incompatibile!"
-	exit()
-
-print "Creiamo un browser virtuale e facciamo il login"
-browser = htmlfbapi.Facebook(email, password)
-
-print "Andiamo in un gruppo ora"
-# https://m.facebook.com/groups/102915623163953
-gruppo = browser.get_group("102915623163953")
-
-print "Il gid del gruppo è %s" % gruppo.gid
-
-print "Scarichiamo la lista dei partecipanti"
-print "Usiamo due processi e attiviamo il contatore dei download"
-profili = gruppo.get_members(verbose=True, processes=2)
-
-print "Ora stampiamo tutti i nomi che iniziano con \"a\""
+# stampa il nome di ogni profilo
 for profilo in profili:
-	nome = profilo['name'].lower()
-	if nome[0] == "a":
-		print profilo['name']
-
-print "Scarichiamo un profilo"
-profilo = browser.get_profile("/zuck")
-
-print profilo.url, "è", profilo.gender
-print "Link alla sua immagine del profilo: %s" % profilo.profile_picture
+	print profilo['name'].encode("utf8")
 ```
-
-## Librerie richieste ##
- * [Beautiful Soup 4](http://www.crummy.com/software/BeautifulSoup/#Download)
-
-## Oggetti e metodi ##
-
-In doc/MAN.txt c'è la documentazione generata automaticamente da pydoc. Comunque,
-in caso di dubbi si può leggere anche il codice, ci sono molti commenti.
-
-## Quando vengono aggiunti nuovi oggetti, metodi e altra roba? ##
-
-Quando mi servono xD
-In realtà l'intenzione non era quella di creare una libreria completa, anche se
-sarebbe interessante. Ho semplicemente separato questa libreria da altri miei software,
-per questo ha solo la roba che serve per far funzionare quei software. Comunque,
-dovrebbe essere semplice aggiungere nuovi metodi, che aggiungerò anche io stesso
-in futuro.  
-Questa libreria verrà comunque aggiornata se Facebook dovesse cambiare il codice
-HTML, creando dei bug in alcuni metodi.  
-Se avete migliorato questa libreria, se volete potete inviarmi le modifiche, così
-gli altri non dovranno perdere tempo a riscrivere quello che avete già scritto.
-
-## Quando posso aggiornare la libreria senza far esplodere il software che la usa? ##
-La libreria può essere aggiornata senza problemi finche version.MAJOR rimane uguale.
-
-## Standards ##
-* Il codice è scritto per python 2
-* Viene usato il modulo logging per gestire i log
-* Per il numero di versione si usa [Semantic Versioning](http://semver.org/)
-* Nel codice si usano dei tag per i commenti:
-  * TODO: cose da fare, prima o poi
-  * HACK: soluzione provvisoria ad un problema
-  * XXX: fa schifo ai maiali ma funziona, riscrivere
-  * FIXME: qualcosa che non funziona
 
 ## Modificare la libreria ##
 
-Scrivere nuovi metodi è molto semplice, tutto si basa sul download di pagine da
-Facebook e l'estrazione dei dati dal codice HTML. Per il download, si deve usare
-l'oggetto requests.Session di htmlfbapi.Facebook: htmlfbapi.Facebook.session.
+Scrivere nuovi oggetti, metodi o funzioni è veramente molto semplice: si ha un oggetto requests.Session() con il profilo loggato, e i relativi metodi, per es. get() e post().
 
-Per scaricare una pagina con un profilo (oggetto htmlfbapi.Facebook), basta fare
+Per scaricare una pagina con un profilo, basta fare
 
 ```python
-profilo.session.get(url_pagina)
+profilo1.session().get(pagina)
 ```
 
-dove ovviamente profilo è l'oggetto htmlfbapi.Facebook.
+avendo ovviamente profilo1 come nell'esempio sopra:
 
-Per degli esempi, leggere il codice in della libreria in /src, è commentato ed è
-abbastanza semplice.
+```python
+# connessione a fb
+profilo1 = htmlfbapi.Facebook(email, passw)
+```
+
+Per degli esempi, leggere il codice in ./src, è commentato e abbastanza semplice.
+
+## Oggetti e metodi ##
+
+Leggere il file in ./doc
+
+## Aggiornamenti ##
+
+Questa libreria attualmente è "incompleta", nel senso che non fa molte cose, perché la aggiorno solo quando mi servono nuovi metodi, oggetti ecc. o quando facebook cambia il codice HTML del sito.
+Essendo però software free, potete creare la vostra versione, o inviarmi le vostre modifiche, così tutti avranno una libreria migliore.
 
 ## Altre informazioni ##
 
-> This is the Unix philosophy: Write programs that do one thing and do it well.
-Write programs to work together. Write programs to handle text streams, because
-that is a universal interface.
+> This is the Unix philosophy: Write programs that do one thing and do it well. Write programs to work together. Write programs to handle text streams, because that is a universal interface.  
 
-Aggiornamenti: [GitHub](https://github.com/matteoalessiocarrara)  
+Aggiornamenti: [GitHub] (https://github.com/matteoalessiocarrara)  
 Email: sw.matteoac@gmail.com
