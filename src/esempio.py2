@@ -1,0 +1,78 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+#  Copyright 2015 Matteo Alessio Carrara <sw.matteoac@gmail.com>
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+#  MA 02110-1301, USA.
+
+# file della libreria
+import htmlfbapi
+import version
+
+import logging
+import sys
+
+if len(sys.argv) != 2 +1:
+	print "Uso:", argv[0], "email password"
+	exit()
+
+email, password = sys.argv[1:]
+
+
+# Configurazione di logging
+
+rootlogger = logging.getLogger()
+rootlogger.setLevel(logging.WARNING)
+ch = logging.StreamHandler()
+f = "%(levelname)s %(filename)s.%(funcName)s: %(message)s"
+formatter = logging.Formatter(f)
+ch.setFormatter(formatter)
+rootlogger.addHandler(ch)
+
+print "HTMLFBAPI v.", version.version_str
+
+if version.MAJOR != 3:
+	print "Versione della libreria incompatibile!"
+	exit()
+
+print "Creiamo un browser virtuale e facciamo il login"
+browser = htmlfbapi.Facebook(email, password)
+
+# attiviamo la cache della lingua, questo migliora le prestazioni
+# ma si deve fare attenzione a non cambiare la lingua del profilo mentre si usa
+browser.fblang_obj.set_cache_status(True)
+
+print "Andiamo in un gruppo ora"
+# https://m.facebook.com/groups/102915623163953
+gruppo = browser.get_group("102915623163953")
+
+print "Il gid del gruppo è %s" % gruppo.gid
+
+print "Scarichiamo la lista dei partecipanti"
+print "Usiamo due processi e attiviamo il contatore dei download"
+profili = gruppo.get_members(verbose=True, processes=2)
+
+print "Ora stampiamo tutti i nomi che iniziano con \"a\""
+for profilo in profili:
+	nome = profilo['name'].lower()
+	if nome[0] == "a":
+		print profilo['name']
+
+print "Scarichiamo un profilo"
+profilo = browser.get_profile("/zuck")
+
+print profilo.url, "è", profilo.gender
+print "Link alla sua immagine del profilo: %s" % profilo.profile_picture
