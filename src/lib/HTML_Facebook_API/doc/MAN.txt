@@ -1,0 +1,902 @@
+Help on module htmlfbapi:
+
+NAME
+    htmlfbapi - Oggetti principali di facebook
+
+FILE
+    /src/lib/HTML_Facebook_API/src/htmlfbapi.py
+
+CLASSES
+    Facebook
+    objects.GenericFBObj(__builtin__.object)
+        Group
+        Profile
+    
+    class Facebook
+     |  Un "browser virtuale", dove è già stato fatto il login su Facebook
+     |  
+     |  Methods defined here:
+     |  
+     |  __init__(self, email, password, ua='Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:41.0) Gecko/20100101 Firefox/41.0')
+     |      Fa il login su Facebook
+     |      
+     |      Parametri:
+     |      * ua: lo user-agent da usare
+     |        ATTENZIONE: CAMBIANDO L'UA ALCUNI METODI POTREBBERO NON FUNZIONARE!
+     |  
+     |  get_email(self)
+     |      Restituisce l'email usata per il login
+     |  
+     |  get_group(self, gid)
+     |      Restituisce un oggetto Group inizializzato con questo oggetto Facebook
+     |      e il gid
+     |  
+     |  get_lang(self)
+     |      Restituisce una stringa con la lingua del profilo
+     |  
+     |  get_password(self)
+     |      Restituisce la password usata per il login
+     |  
+     |  get_profile(self, url)
+     |      Restituisce un oggetto Profile inizializzato con questo oggetto Facebook
+     |      e l'url
+     |  
+     |  get_session(self)
+     |      Restituisce la sessione
+     |  
+     |  get_user_agent(self)
+     |      Restituisce lo user agent utilizzato
+     |  
+     |  set_user_agent(self, ua)
+     |      Modifica l'ua
+     |      ATTENZIONE: CAMBIANDO L'UA ALCUNI METODI POTREBBERO NON FUNZIONARE!
+     |  
+     |  translate_gender_str(self, gender_en)
+     |      Restituisce la stringa gender_en tradotta nella lingua del profilo
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  email
+     |      Restituisce l'email usata per il login
+     |  
+     |  lang
+     |      Restituisce una stringa con la lingua del profilo
+     |  
+     |  password
+     |      Restituisce la password usata per il login
+     |  
+     |  session
+     |      Restituisce la sessione
+     |  
+     |  user_agent
+     |      Restituisce lo user agent utilizzato
+    
+    class Group(objects.GenericFBObj)
+     |  Rappresentazione di un gruppo su Facebook
+     |  
+     |  Method resolution order:
+     |      Group
+     |      objects.GenericFBObj
+     |      __builtin__.object
+     |  
+     |  Methods defined here:
+     |  
+     |  __init__(self, fbobj, gid)
+     |      Parametri:
+     |      * fbobj: un oggetto Facebook
+     |      * gid: il numero che identifica un gruppo su Facebook
+     |  
+     |  get_gid(self)
+     |      Restituisce l'id di questo gruppo
+     |  
+     |  get_members(self, out=<open file '<stderr>', mode 'w'>, verbose=False, processes=1, queue_get_timeout=5)
+     |      Restituisce la lista dei membri, ogni membro è un dizionario con varie
+     |      informazioni
+     |      
+     |      Parametri:
+     |      * out: dove verrà mostrato il contatore dei download (stdout/stderr/...),
+     |        attivabile con verbose
+     |      * verbose: scrive su out il numero di profili attualmente scaricati
+     |      * processes: il numero di processi da utilizzare per il download
+     |        ATTENZIONE: Attualmente usando troppi processi Facebook potrebbe dare
+     |        un errore di login per i troppi tentativi; inoltre questo potrebbe
+     |        rallentare invece che velocizzare, visto che ogni processo deve rifare
+     |        il login
+     |      * queue_get_timeout: quanti secondi aspettare che arrivi un profilo
+     |        dai processi, prima di considerare i profili finiti
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  gid
+     |      Restituisce l'id di questo gruppo
+     |  
+     |  members
+     |      Restituisce la lista dei membri, ogni membro è un dizionario con varie
+     |      informazioni
+     |      
+     |      Parametri:
+     |      * out: dove verrà mostrato il contatore dei download (stdout/stderr/...),
+     |        attivabile con verbose
+     |      * verbose: scrive su out il numero di profili attualmente scaricati
+     |      * processes: il numero di processi da utilizzare per il download
+     |        ATTENZIONE: Attualmente usando troppi processi Facebook potrebbe dare
+     |        un errore di login per i troppi tentativi; inoltre questo potrebbe
+     |        rallentare invece che velocizzare, visto che ogni processo deve rifare
+     |        il login
+     |      * queue_get_timeout: quanti secondi aspettare che arrivi un profilo
+     |        dai processi, prima di considerare i profili finiti
+     |  
+     |  ----------------------------------------------------------------------
+     |  Methods inherited from objects.GenericFBObj:
+     |  
+     |  get_fbobj(self)
+     |      Restituisce l'oggetto Facebook utilizzato in questo oggetto
+     |  
+     |  get_fbobj_session(self)
+     |      Restituisce la sessione dell'oggetto Facebook
+     |  
+     |  set_fbobj(self, fbobj)
+     |      Cambia l'oggetto Facebook usato in questo oggetto
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors inherited from objects.GenericFBObj:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  fbobj
+     |      Restituisce l'oggetto Facebook utilizzato in questo oggetto
+     |  
+     |  session
+     |      Restituisce la sessione dell'oggetto Facebook
+    
+    class Profile(objects.GenericFBObj)
+     |  Un profilo facebook
+     |  
+     |  Method resolution order:
+     |      Profile
+     |      objects.GenericFBObj
+     |      __builtin__.object
+     |  
+     |  Methods defined here:
+     |  
+     |  __init__(self, fbobj, url)
+     |      Parametri:
+     |      * fbobj:  un oggetto Facebook
+     |      * url: dovrebbe essere nella forma "/usename", senza "facebook.com" prima
+     |  
+     |  get_gender(self)
+     |      AL ROKO AL ROKO!!1
+     |  
+     |  get_profile_picture_link(self, size='medium')
+     |      Restituisce il link all'immagine del profilo, o una stringa vuota
+     |      in caso di errore
+     |      
+     |      Parametri:
+     |      * size: la grandezza dell'immagine, accetta come valore "small", "medium"
+     |        e "large"
+     |  
+     |  get_url(self)
+     |      Restituisce l'url di questo profilo, nella forma  "/username
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  gender
+     |      AL ROKO AL ROKO!!1
+     |  
+     |  profile_picture
+     |      Restituisce il link all'immagine del profilo, o una stringa vuota
+     |      in caso di errore
+     |      
+     |      Parametri:
+     |      * size: la grandezza dell'immagine, accetta come valore "small", "medium"
+     |        e "large"
+     |  
+     |  url
+     |      Restituisce l'url di questo profilo, nella forma  "/username
+     |  
+     |  ----------------------------------------------------------------------
+     |  Methods inherited from objects.GenericFBObj:
+     |  
+     |  get_fbobj(self)
+     |      Restituisce l'oggetto Facebook utilizzato in questo oggetto
+     |  
+     |  get_fbobj_session(self)
+     |      Restituisce la sessione dell'oggetto Facebook
+     |  
+     |  set_fbobj(self, fbobj)
+     |      Cambia l'oggetto Facebook usato in questo oggetto
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors inherited from objects.GenericFBObj:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  fbobj
+     |      Restituisce l'oggetto Facebook utilizzato in questo oggetto
+     |  
+     |  session
+     |      Restituisce la sessione dell'oggetto Facebook
+
+FUNCTIONS
+    ruba(email, password)
+        Paura eh? xD
+
+DATA
+    DEFAULT_UA = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:41.0) Gecko/2...
+    logger = <logging.Logger object>
+
+
+Help on module __init__:
+
+NAME
+    __init__ - # -*- coding: utf-8 -*-
+
+FILE
+    /src/lib/HTML_Facebook_API/src/__init__.py
+
+
+Help on module myexceptions:
+
+NAME
+    myexceptions - Eccezioni della libreria
+
+FILE
+    src/lib/HTML_Facebook_API/src/myexceptions.py
+
+CLASSES
+    exceptions.Exception(exceptions.BaseException)
+        ConstError
+        LoginError
+    
+    class ConstError(exceptions.Exception)
+     |  Il codice prima funzionava e ora non funziona più, una "costante" è cambiata
+     |  
+     |  Method resolution order:
+     |      ConstError
+     |      exceptions.Exception
+     |      exceptions.BaseException
+     |      __builtin__.object
+     |  
+     |  Data descriptors defined here:
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Methods inherited from exceptions.Exception:
+     |  
+     |  __init__(...)
+     |      x.__init__(...) initializes x; see help(type(x)) for signature
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes inherited from exceptions.Exception:
+     |  
+     |  __new__ = <built-in method __new__ of type object>
+     |      T.__new__(S, ...) -> a new object with type S, a subtype of T
+     |  
+     |  ----------------------------------------------------------------------
+     |  Methods inherited from exceptions.BaseException:
+     |  
+     |  __delattr__(...)
+     |      x.__delattr__('name') <==> del x.name
+     |  
+     |  __getattribute__(...)
+     |      x.__getattribute__('name') <==> x.name
+     |  
+     |  __getitem__(...)
+     |      x.__getitem__(y) <==> x[y]
+     |  
+     |  __getslice__(...)
+     |      x.__getslice__(i, j) <==> x[i:j]
+     |      
+     |      Use of negative indices is not supported.
+     |  
+     |  __reduce__(...)
+     |  
+     |  __repr__(...)
+     |      x.__repr__() <==> repr(x)
+     |  
+     |  __setattr__(...)
+     |      x.__setattr__('name', value) <==> x.name = value
+     |  
+     |  __setstate__(...)
+     |  
+     |  __str__(...)
+     |      x.__str__() <==> str(x)
+     |  
+     |  __unicode__(...)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors inherited from exceptions.BaseException:
+     |  
+     |  __dict__
+     |  
+     |  args
+     |  
+     |  message
+    
+    class LoginError(exceptions.Exception)
+     |  Login rifiutato da fb
+     |  
+     |  Method resolution order:
+     |      LoginError
+     |      exceptions.Exception
+     |      exceptions.BaseException
+     |      __builtin__.object
+     |  
+     |  Methods defined here:
+     |  
+     |  __init__(self, message, res_title, res_text, email, password, *args)
+     |      Parametri:
+     |      * res_title dovrebbe essere il titolo della pagina HTML restituita
+     |      * res_text l'HTML della pagina restituita
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes inherited from exceptions.Exception:
+     |  
+     |  __new__ = <built-in method __new__ of type object>
+     |      T.__new__(S, ...) -> a new object with type S, a subtype of T
+     |  
+     |  ----------------------------------------------------------------------
+     |  Methods inherited from exceptions.BaseException:
+     |  
+     |  __delattr__(...)
+     |      x.__delattr__('name') <==> del x.name
+     |  
+     |  __getattribute__(...)
+     |      x.__getattribute__('name') <==> x.name
+     |  
+     |  __getitem__(...)
+     |      x.__getitem__(y) <==> x[y]
+     |  
+     |  __getslice__(...)
+     |      x.__getslice__(i, j) <==> x[i:j]
+     |      
+     |      Use of negative indices is not supported.
+     |  
+     |  __reduce__(...)
+     |  
+     |  __repr__(...)
+     |      x.__repr__() <==> repr(x)
+     |  
+     |  __setattr__(...)
+     |      x.__setattr__('name', value) <==> x.name = value
+     |  
+     |  __setstate__(...)
+     |  
+     |  __str__(...)
+     |      x.__str__() <==> str(x)
+     |  
+     |  __unicode__(...)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors inherited from exceptions.BaseException:
+     |  
+     |  __dict__
+     |  
+     |  args
+     |  
+     |  message
+
+DATA
+    logger = <logging.Logger object>
+
+
+Help on module myrequests:
+
+NAME
+    myrequests - Versione modificata di requests, usata nella libreria
+
+FILE
+    /src/lib/HTML_Facebook_API/src/myrequests.py
+
+CLASSES
+    requests.sessions.Session(requests.sessions.SessionRedirectMixin)
+        Session
+    
+    class Session(requests.sessions.Session)
+     |  Aggiunge il metodo get2() a request.Session()
+     |  
+     |  Method resolution order:
+     |      Session
+     |      requests.sessions.Session
+     |      requests.sessions.SessionRedirectMixin
+     |      __builtin__.object
+     |  
+     |  Methods defined here:
+     |  
+     |  get2(self, url, **kwargs)
+     |      Crea un eccezione requests.HTTPError in caso di errore
+     |  
+     |  ----------------------------------------------------------------------
+     |  Methods inherited from requests.sessions.Session:
+     |  
+     |  __enter__(self)
+     |  
+     |  __exit__(self, *args)
+     |  
+     |  __getstate__(self)
+     |  
+     |  __init__(self)
+     |  
+     |  __setstate__(self, state)
+     |  
+     |  close(self)
+     |      Closes all adapters and as such the session
+     |  
+     |  delete(self, url, **kwargs)
+     |      Sends a DELETE request. Returns :class:`Response` object.
+     |      
+     |      :param url: URL for the new :class:`Request` object.
+     |      :param \*\*kwargs: Optional arguments that ``request`` takes.
+     |  
+     |  get(self, url, **kwargs)
+     |      Sends a GET request. Returns :class:`Response` object.
+     |      
+     |      :param url: URL for the new :class:`Request` object.
+     |      :param \*\*kwargs: Optional arguments that ``request`` takes.
+     |  
+     |  get_adapter(self, url)
+     |      Returns the appropriate connnection adapter for the given URL.
+     |  
+     |  head(self, url, **kwargs)
+     |      Sends a HEAD request. Returns :class:`Response` object.
+     |      
+     |      :param url: URL for the new :class:`Request` object.
+     |      :param \*\*kwargs: Optional arguments that ``request`` takes.
+     |  
+     |  mount(self, prefix, adapter)
+     |      Registers a connection adapter to a prefix.
+     |      
+     |      Adapters are sorted in descending order by key length.
+     |  
+     |  options(self, url, **kwargs)
+     |      Sends a OPTIONS request. Returns :class:`Response` object.
+     |      
+     |      :param url: URL for the new :class:`Request` object.
+     |      :param \*\*kwargs: Optional arguments that ``request`` takes.
+     |  
+     |  patch(self, url, data=None, **kwargs)
+     |      Sends a PATCH request. Returns :class:`Response` object.
+     |      
+     |      :param url: URL for the new :class:`Request` object.
+     |      :param data: (optional) Dictionary, bytes, or file-like object to send in the body of the :class:`Request`.
+     |      :param \*\*kwargs: Optional arguments that ``request`` takes.
+     |  
+     |  post(self, url, data=None, **kwargs)
+     |      Sends a POST request. Returns :class:`Response` object.
+     |      
+     |      :param url: URL for the new :class:`Request` object.
+     |      :param data: (optional) Dictionary, bytes, or file-like object to send in the body of the :class:`Request`.
+     |      :param \*\*kwargs: Optional arguments that ``request`` takes.
+     |  
+     |  prepare_request(self, request)
+     |      Constructs a :class:`PreparedRequest <PreparedRequest>` for
+     |      transmission and returns it. The :class:`PreparedRequest` has settings
+     |      merged from the :class:`Request <Request>` instance and those of the
+     |      :class:`Session`.
+     |      
+     |      :param request: :class:`Request` instance to prepare with this
+     |          session's settings.
+     |  
+     |  put(self, url, data=None, **kwargs)
+     |      Sends a PUT request. Returns :class:`Response` object.
+     |      
+     |      :param url: URL for the new :class:`Request` object.
+     |      :param data: (optional) Dictionary, bytes, or file-like object to send in the body of the :class:`Request`.
+     |      :param \*\*kwargs: Optional arguments that ``request`` takes.
+     |  
+     |  request(self, method, url, params=None, data=None, headers=None, cookies=None, files=None, auth=None, timeout=None, allow_redirects=True, proxies=None, hooks=None, stream=None, verify=None, cert=None)
+     |      Constructs a :class:`Request <Request>`, prepares it and sends it.
+     |      Returns :class:`Response <Response>` object.
+     |      
+     |      :param method: method for the new :class:`Request` object.
+     |      :param url: URL for the new :class:`Request` object.
+     |      :param params: (optional) Dictionary or bytes to be sent in the query
+     |          string for the :class:`Request`.
+     |      :param data: (optional) Dictionary or bytes to send in the body of the
+     |          :class:`Request`.
+     |      :param headers: (optional) Dictionary of HTTP Headers to send with the
+     |          :class:`Request`.
+     |      :param cookies: (optional) Dict or CookieJar object to send with the
+     |          :class:`Request`.
+     |      :param files: (optional) Dictionary of 'filename': file-like-objects
+     |          for multipart encoding upload.
+     |      :param auth: (optional) Auth tuple or callable to enable
+     |          Basic/Digest/Custom HTTP Auth.
+     |      :param timeout: (optional) Float describing the timeout of the
+     |          request.
+     |      :param allow_redirects: (optional) Boolean. Set to True by default.
+     |      :param proxies: (optional) Dictionary mapping protocol to the URL of
+     |          the proxy.
+     |      :param stream: (optional) whether to immediately download the response
+     |          content. Defaults to ``False``.
+     |      :param verify: (optional) if ``True``, the SSL cert will be verified.
+     |          A CA_BUNDLE path can also be provided.
+     |      :param cert: (optional) if String, path to ssl client cert file (.pem).
+     |          If Tuple, ('cert', 'key') pair.
+     |  
+     |  send(self, request, **kwargs)
+     |      Send a given PreparedRequest.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes inherited from requests.sessions.Session:
+     |  
+     |  __attrs__ = ['headers', 'cookies', 'auth', 'timeout', 'proxies', 'hook...
+     |  
+     |  ----------------------------------------------------------------------
+     |  Methods inherited from requests.sessions.SessionRedirectMixin:
+     |  
+     |  rebuild_auth(self, prepared_request, response)
+     |      When being redirected we may want to strip authentication from the
+     |      request to avoid leaking credentials. This method intelligently removes
+     |      and reapplies authentication where possible to avoid credential loss.
+     |  
+     |  rebuild_proxies(self, prepared_request, proxies)
+     |      This method re-evaluates the proxy configuration by considering the
+     |      environment variables. If we are redirected to a URL covered by
+     |      NO_PROXY, we strip the proxy configuration. Otherwise, we set missing
+     |      proxy keys for this URL (in case they were stripped by a previous
+     |      redirect).
+     |      
+     |      This method also replaces the Proxy-Authorization header where
+     |      necessary.
+     |  
+     |  resolve_redirects(self, resp, req, stream=False, timeout=None, verify=True, cert=None, proxies=None)
+     |      Receives a Response. Returns a generator of Responses.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors inherited from requests.sessions.SessionRedirectMixin:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+
+DATA
+    logger = <logging.Logger object>
+
+
+Help on module objects:
+
+NAME
+    objects - Oggetti secondari
+
+FILE
+    /src/lib/HTML_Facebook_API/src/objects.py
+
+CLASSES
+    __builtin__.object
+        GenericFBObj
+            FBLang
+    
+    class FBLang(GenericFBObj)
+     |  La "stringa" che rappresenta la lingua di un profilo
+     |  ATTENZIONE: Questo oggetto NON È UN OGGETTO str, per ottenere la stringa usare str()
+     |  
+     |  Method resolution order:
+     |      FBLang
+     |      GenericFBObj
+     |      __builtin__.object
+     |  
+     |  Methods defined here:
+     |  
+     |  __init__(self, fbobj, use_cache=False)
+     |      Parametri:
+     |      * fbobj deve essere un oggetto Facebook
+     |      * con use_cache si può attivare o disattivare la cache della lingua
+     |  
+     |  __str__(self)
+     |      Restituisce la stringa con la lingua del profilo
+     |      Utilizza automaticamente la cache se è attiva
+     |  
+     |  get_cache_status(self)
+     |      Restituisce True se la cache è attiva, False se non è attiva
+     |  
+     |  get_cached_lang(self)
+     |      Restituisce la lingua memorizzata nella cache, se la cache non è
+     |      attiva restituisce str(None)
+     |  
+     |  get_server_lang(self)
+     |      Restituisce la lingua del profilo scaricandola da Facebook
+     |  
+     |  set_cache_status(self, use_cache)
+     |      Attiva o disattiva la cache per la lingua
+     |      
+     |      Quando attiva, la lingua viene scaricata una sola volta e conservata
+     |      in una varibaile
+     |      Quando non attiva, ogni volta che è richiesta viene riscaricata
+     |      
+     |      Se si usa la cache e la lingua viene modificata sul sito, la cache deve
+     |      essere aggiornata con self.update_cache()
+     |      Altrimenti alcuni metodi smetteranno di funzionare
+     |      
+     |      Parametri:
+     |       * use_cache: deve contenere o True o False
+     |  
+     |  update_cache(self)
+     |      Aggiorna la cache della lingua
+     |      Restituisce False se la cache non è attiva
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  cache_status
+     |      Restituisce True se la cache è attiva, False se non è attiva
+     |  
+     |  cached_lang
+     |      Restituisce la lingua memorizzata nella cache, se la cache non è
+     |      attiva restituisce str(None)
+     |  
+     |  server_lang
+     |      Restituisce la lingua del profilo scaricandola da Facebook
+     |  
+     |  ----------------------------------------------------------------------
+     |  Methods inherited from GenericFBObj:
+     |  
+     |  get_fbobj(self)
+     |      Restituisce l'oggetto Facebook utilizzato in questo oggetto
+     |  
+     |  get_fbobj_session(self)
+     |      Restituisce la sessione dell'oggetto Facebook
+     |  
+     |  set_fbobj(self, fbobj)
+     |      Cambia l'oggetto Facebook usato in questo oggetto
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors inherited from GenericFBObj:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  fbobj
+     |      Restituisce l'oggetto Facebook utilizzato in questo oggetto
+     |  
+     |  session
+     |      Restituisce la sessione dell'oggetto Facebook
+    
+    class GenericFBObj(__builtin__.object)
+     |  Un generico oggetto su Facebook
+     |  
+     |  Methods defined here:
+     |  
+     |  __init__(self, fbobj)
+     |      Parametri:
+     |      * fbobj: un oggetto Facebook
+     |  
+     |  get_fbobj(self)
+     |      Restituisce l'oggetto Facebook utilizzato in questo oggetto
+     |  
+     |  get_fbobj_session(self)
+     |      Restituisce la sessione dell'oggetto Facebook
+     |  
+     |  set_fbobj(self, fbobj)
+     |      Cambia l'oggetto Facebook usato in questo oggetto
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  fbobj
+     |      Restituisce l'oggetto Facebook utilizzato in questo oggetto
+     |  
+     |  session
+     |      Restituisce la sessione dell'oggetto Facebook
+
+DATA
+    logger = <logging.Logger object>
+
+
+Help on module translations:
+
+NAME
+    translations - Funzioni e oggetti per la gestione di stringhe dipendenti dalla lingua
+
+FILE
+    /src/lib/HTML_Facebook_API/src/translations.py
+
+CLASSES
+    __builtin__.dict(__builtin__.object)
+        GendersDict
+    
+    class GendersDict(__builtin__.dict)
+     |  Dizionario con metodi specifici
+     |  
+     |  Method resolution order:
+     |      GendersDict
+     |      __builtin__.dict
+     |      __builtin__.object
+     |  
+     |  Methods defined here:
+     |  
+     |  __init__(self, dict_)
+     |      Struttura del dizionario: dizionario[gender_en_str][facebook_lang_str]
+     |  
+     |  get_genders(self)
+     |      Lista dei generi disponibili nel dizionario
+     |  
+     |  translations(self, gender)
+     |      Restituisce le traduzioni disponibili per un genere
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  genders
+     |      Lista dei generi disponibili nel dizionario
+     |  
+     |  ----------------------------------------------------------------------
+     |  Methods inherited from __builtin__.dict:
+     |  
+     |  __cmp__(...)
+     |      x.__cmp__(y) <==> cmp(x,y)
+     |  
+     |  __contains__(...)
+     |      D.__contains__(k) -> True if D has a key k, else False
+     |  
+     |  __delitem__(...)
+     |      x.__delitem__(y) <==> del x[y]
+     |  
+     |  __eq__(...)
+     |      x.__eq__(y) <==> x==y
+     |  
+     |  __ge__(...)
+     |      x.__ge__(y) <==> x>=y
+     |  
+     |  __getattribute__(...)
+     |      x.__getattribute__('name') <==> x.name
+     |  
+     |  __getitem__(...)
+     |      x.__getitem__(y) <==> x[y]
+     |  
+     |  __gt__(...)
+     |      x.__gt__(y) <==> x>y
+     |  
+     |  __iter__(...)
+     |      x.__iter__() <==> iter(x)
+     |  
+     |  __le__(...)
+     |      x.__le__(y) <==> x<=y
+     |  
+     |  __len__(...)
+     |      x.__len__() <==> len(x)
+     |  
+     |  __lt__(...)
+     |      x.__lt__(y) <==> x<y
+     |  
+     |  __ne__(...)
+     |      x.__ne__(y) <==> x!=y
+     |  
+     |  __repr__(...)
+     |      x.__repr__() <==> repr(x)
+     |  
+     |  __setitem__(...)
+     |      x.__setitem__(i, y) <==> x[i]=y
+     |  
+     |  __sizeof__(...)
+     |      D.__sizeof__() -> size of D in memory, in bytes
+     |  
+     |  clear(...)
+     |      D.clear() -> None.  Remove all items from D.
+     |  
+     |  copy(...)
+     |      D.copy() -> a shallow copy of D
+     |  
+     |  fromkeys(...)
+     |      dict.fromkeys(S[,v]) -> New dict with keys from S and values equal to v.
+     |      v defaults to None.
+     |  
+     |  get(...)
+     |      D.get(k[,d]) -> D[k] if k in D, else d.  d defaults to None.
+     |  
+     |  has_key(...)
+     |      D.has_key(k) -> True if D has a key k, else False
+     |  
+     |  items(...)
+     |      D.items() -> list of D's (key, value) pairs, as 2-tuples
+     |  
+     |  iteritems(...)
+     |      D.iteritems() -> an iterator over the (key, value) items of D
+     |  
+     |  iterkeys(...)
+     |      D.iterkeys() -> an iterator over the keys of D
+     |  
+     |  itervalues(...)
+     |      D.itervalues() -> an iterator over the values of D
+     |  
+     |  keys(...)
+     |      D.keys() -> list of D's keys
+     |  
+     |  pop(...)
+     |      D.pop(k[,d]) -> v, remove specified key and return the corresponding value.
+     |      If key is not found, d is returned if given, otherwise KeyError is raised
+     |  
+     |  popitem(...)
+     |      D.popitem() -> (k, v), remove and return some (key, value) pair as a
+     |      2-tuple; but raise KeyError if D is empty.
+     |  
+     |  setdefault(...)
+     |      D.setdefault(k[,d]) -> D.get(k,d), also set D[k]=d if k not in D
+     |  
+     |  update(...)
+     |      D.update([E, ]**F) -> None.  Update D from dict/iterable E and F.
+     |      If E present and has a .keys() method, does:     for k in E: D[k] = E[k]
+     |      If E present and lacks .keys() method, does:     for (k, v) in E: D[k] = v
+     |      In either case, this is followed by: for k in F: D[k] = F[k]
+     |  
+     |  values(...)
+     |      D.values() -> list of D's values
+     |  
+     |  viewitems(...)
+     |      D.viewitems() -> a set-like object providing a view on D's items
+     |  
+     |  viewkeys(...)
+     |      D.viewkeys() -> a set-like object providing a view on D's keys
+     |  
+     |  viewvalues(...)
+     |      D.viewvalues() -> an object providing a view on D's values
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes inherited from __builtin__.dict:
+     |  
+     |  __hash__ = None
+     |  
+     |  __new__ = <built-in method __new__ of type object>
+     |      T.__new__(S, ...) -> a new object with type S, a subtype of T
+
+FUNCTIONS
+    translate_gender(gender_en, translate_lang)
+        Wrapper per GENDER_STR_DICT, con eccezioni più dettagliate
+
+DATA
+    GENDER_STR_DICT = {'female': {'English (US)': 'Female', 'Italiano': 'D...
+    GENDER_STR_NDICT = {'female': {'English (US)': 'Female', 'Italiano': '...
+    logger = <logging.Logger object>
+
+
+Help on module version:
+
+NAME
+    version - This project adheres to Semantic Versioning (http://semver.org/)
+
+FILE
+    /src/lib/HTML_Facebook_API/src/version.py
+
+DATA
+    MAJOR = 3
+    MINOR = 0
+    PATCH = 0
+    version_str = '3.0.0'
+
+
