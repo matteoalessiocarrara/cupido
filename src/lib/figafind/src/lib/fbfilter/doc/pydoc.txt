@@ -1,0 +1,75 @@
+problem in ./fbfilter.py - <type 'exceptions.NotImplementedError'>: Versione di lib-htmlfbapi incompatibile, richiesta 4, trovata 1
+Help on module filter_components:
+
+NAME
+    filter_components - Componenti di un filtro
+
+CLASSES
+    __builtin__.object
+        FilterRules
+    
+    class FilterRules(__builtin__.object)
+     |  Le regole di un filtro, ovvero la definizione di cosa può passare dal filtro
+     |  
+     |  Methods defined here:
+     |  
+     |  optional_property_custom_test(self, profile)
+     |      Controlla quali requisiti opzionali sono soddisfatti dal profilo, con dei test
+     |      personalizzati
+     |      Restituisce una lista con i nomi dei requisiti soddisfatti
+     |      
+     |      Parametri:
+     |      
+     |              profile: lib.htmlfbapi.fbobj.Profile
+     |                      Il profilo da controllare
+     |  
+     |  required_property_custom_test(self, profile)
+     |      Controlla se il profilo soddisfa i requisiti richiesti, con dei test 
+     |      personalizzati
+     |      Restituisce True o False
+     |      
+     |      Parametri:
+     |      
+     |              profile: lib.htmlfbapi.fbobj.Profile
+     |                      Il profilo da controllare
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes defined here:
+     |  
+     |  optional_property_for_equality_test = {}
+     |  
+     |  required_property_for_equality_test = {}
+
+DATA
+    logger = <logging.Logger object>
+
+
+Help on module version:
+
+NAME
+    version
+
+DESCRIPTION
+    Informazioni sulla libreria - contiene le informazioni solitamente ottenibili con 
+    il parametro --version nei software GNU
+
+DATA
+    copyright = 'Copyright (C) 2015 - 2016 Matteo Alessio Carrara'
+    htmlfbapi_version_required = 4
+    lib_name = 'lib-fbfilter'
+    license = 'License GPLv3+: GNU GPL version 3 or later <http...e is NO ...
+    version_major = 1
+    version_minor = 2
+    version_patch = 0
+    version_str = '1.2.0'
+
+
