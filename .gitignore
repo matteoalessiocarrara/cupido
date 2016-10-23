@@ -1,3 +1,4 @@
 *.pyc
 geckodriver.log
-download_likes.py3
+.~lock*
+test.csv
