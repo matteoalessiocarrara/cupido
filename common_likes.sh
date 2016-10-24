@@ -5,11 +5,15 @@
 # Output: conteggio dei mi piace in comune, ordine decrescente, csv 
 
 python <<< "
+import csv
+import sys
+
+c = csv.writer(sys.stdout)
 for line in '''$(cat $@ | sort | uniq -c | sort -n -r)'''.split('\n'):
 	l = line.strip()
 	num = l.split(' ')[0]
 	t = l[len(num) + 1:]
-	print ('\"%s\", %s' % (t, num))
+	c.writerow([t, num])
 "
 
 
