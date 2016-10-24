@@ -16,7 +16,7 @@ from download_likes import LikesDownloader
 try:
 	username, password, download_dir, query = argv[1:5]
 except ValueError:
-	exit("Uso: download_likes.py username password download_dir query [max_items]")
+	exit("Uso: query_and_download_likes.py username password download_dir query [max_items]")
 
 max_items = None if len(argv) < 6 else int(argv[5])
 
@@ -26,6 +26,6 @@ fb = fbwrapper.Facebook(username, password)
 
 usernames = []
 for person in fb.people_search(query, max_items):
-	usernames.append(person["url"].split("/")[3].split("?")[0])
+	usernames.append(fbwrapper.Profile.nick_from_url(person["url"]))
 
 LikesDownloader(None, None, download_dir, usernames, fb)
