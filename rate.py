@@ -37,5 +37,5 @@ with open(profile_likes_f) as pl:
 				logging.debug("Trovato like corrispondente: %s %s" % (count, like))
 				rating += (1 * (count / float(models)))
 
-print (rating)
+print (rating, profile_likes_f)
 		
