@@ -1,0 +1,3 @@
+[submodule "fbwrapper"]
+	path = fbwrapper
+	url = ../facebook-wrapper

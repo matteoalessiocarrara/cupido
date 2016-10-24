@@ -1,1 +1,4 @@
 *.pyc
+geckodriver.log
+.~lock*
+test.csv
