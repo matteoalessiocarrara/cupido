@@ -19,7 +19,10 @@ from fbwrapper import fbwrapper
 class LikesDownloader:
 
 	def __init__(self, username, password, download_dir, profiles, fb_obj=None):
-		"""Se fb_obj è diverso da None, verrà usato quello invece di fare un nuovo login"""
+		"""
+		Se fb_obj è diverso da None, verrà usato quello invece di fare un nuovo login
+		Profiles deve essere una lista di nickname
+		"""
 		self.__fb = fb_obj if fb_obj != None else fbwrapper.Facebook(username, password)
 		self.__dir = download_dir
 		self.__profiles = profiles
