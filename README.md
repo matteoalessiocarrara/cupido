@@ -1,14 +1,12 @@
-# Cerca automaticamente la Ragazza Ideale
-
-Questo repo contiene alcuni strumenti utilizzabili per trovare persone simili ad 
-un certo modello, utilizzando facebook.
+# Cerca automaticamente la Ragazza Ideale su facebook
 
 
 ## Funzionamento
 
-1. Creazione di un modello ideale, analizzando le migliori persone che si conoscono
-2. Ricerca di ragazze vicine, attraverso la graph search di facebook
-3. Comparazione delle ragazze vicine con il modello ideale
+1. Acquisizione delle informazioni su persone simili a quella da cercare (mi piace, gruppi, luoghi ecc) (acquisition)
+2. Elaborazione delle informazioni raccolte per generare un modello (processing)
+3. Download di persone sconosciute (acquisition)
+4. Comparazione con il modello creato precedentemente per ottenere una valutazione (analysis)
 
 
 ## Per aggiornamenti
