@@ -24,8 +24,5 @@ max_items = None if len(argv) < 6 else int(argv[5])
 logging.getLogger().setLevel(logging.INFO)
 fb = fbwrapper.Facebook(username, password)
 
-usernames = []
-for person in fb.people_search(query, max_items):
-	usernames.append(fbwrapper.Profile.nick_from_url(person["url"]))
-
+usernames = [fbwrapper.Profile.nick_from_url(person["url"]) for person in fb.people_search(query, max_items)]
 LikesDownloader(None, None, download_dir, usernames, fb)

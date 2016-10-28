@@ -1,8 +1,7 @@
 #!/bin/bash
 # Copyright 2016 Matteo Alessio Carrara <sw.matteoac@gmail.com>
 
-# Rimuove i like duplicati in ogni profilo
-# Input: la directory con i mi piace
+# Rimuove i like duplicati in ogni profilo di una directory
 
 
 if [[ $# -ne 1 ]]; then
