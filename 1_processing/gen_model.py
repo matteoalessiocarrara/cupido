@@ -36,8 +36,14 @@ def main():
 	c = csv.writer(stdout)
 	model_likes_percent = calc_likes_percent(model_likes_files)
 	anti_likes_percent = calc_likes_percent(anti_likes_files)
-	for key in model_likes_percent:
-			c.writerow([(model_likes_percent[key] - anti_likes_percent[key] if key in anti_likes_percent.keys() else model_likes_percent[key]), key])
+	for key in set(list(model_likes_percent.keys()) + list(anti_likes_percent.keys())):
+		v = 0
+		if key in model_likes_percent.keys():
+			v += model_likes_percent[key]
+		if key in anti_likes_percent.keys():
+			v -= anti_likes_percent[key]
+
+		c.writerow([v, key])
 
 
 logging.getLogger().setLevel(logging.DEBUG)
