@@ -10,29 +10,36 @@
 
 
 from sys import argv
+from os.path import isfile
 import logging
 
 from fbwrapper import fbwrapper
 
 
 
-class LikesDownloader:
+class LikesDownloader:	
+	""" Scarica i 'mi piace' di una o più persone"""
 
-	def __init__(self, username, password, download_dir, profiles, fb_obj=None):
+	def __init__(self, username, password, download_dir, profiles, fb_obj=None, overwrite_likes=False):
 		"""
 		Se fb_obj è diverso da None, verrà usato quello invece di fare un nuovo login
-		Profiles deve essere una lista di nickname
+		Profiles deve essere una *lista* di nickname (attenzione, deve esserlo 
+		anche quando ce ne fosse solo uno!)
 		"""
 		self.__fb = fb_obj if fb_obj != None else fbwrapper.Facebook(username, password)
 		self.__dir = download_dir
 		self.__profiles = profiles
+		self.__overwrite_likes = overwrite_likes
 		
 		self.__downloadLikes()
 	
 	
 	def __downloadLikes(self):
 		for profile in self.__profiles:
-			self.__write_likes(self.__fb.get_profile(profile).get_likes(), "%s/%s" % (self.__dir,  profile))
+			if (self.__overwrite_likes and isfile(self.__dir + "/" + profile)):
+				logging.warning("Il profilo %s non è stato controllato perché già esistente" % profile)
+			else:
+				self.__write_likes(self.__fb.get_profile(profile).get_likes(), "%s/%s" % (self.__dir,  profile))
 		
 
 	def __write_likes(self, likes, fpath):
