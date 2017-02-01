@@ -5,9 +5,9 @@ facebook, a scopo di analisi o confronto. Nonostante li abbia scritti con l'inte
 di trovare nuovi amici (e amiche!), sono abbastanza generici da poter essere utilizzati 
 per differenti scopi scientifici.
 
-*ATTENZIONE: l'utilizzo di facebook tramite bot e altri sistemi automatici è 
+__ATTENZIONE: l'utilizzo di facebook tramite bot e altri sistemi automatici è 
 esplicitamente vietato dal regolamento. Utilizzate questi strumenti a vostro rischio 
-e pericolo.*
+e pericolo.__
 
 ## Funzionamento
 
