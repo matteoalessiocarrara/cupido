@@ -1,6 +1,16 @@
 # Cupido
 Find the Ideal Girl on facebook
 
+## Downloading the source code
+Since this software uses a library as a git submodule, it can not simply be 
+downloaded from github. The correct procedure is:
+
+```bash
+git clone $this_repo_url
+cd $this_repo_name
+git submodule update --init --recursive
+```
+
 ## Usage
 
 1. You must download the information of the best people that you know (acquisition)
