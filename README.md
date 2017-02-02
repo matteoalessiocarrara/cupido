@@ -1,4 +1,5 @@
-# Find the Ideal Girl on facebook
+# Cupido
+Find the Ideal Girl on facebook
 
 ## Usage
 
