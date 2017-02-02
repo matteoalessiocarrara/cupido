@@ -3,10 +3,10 @@
 # Copyright 2016 Matteo Alessio Carrara <sw.matteoac@gmail.com>
 
 
-# Questo script può essere utilizzato per scaricare i 'mi piace' di varie persone 
-# in una directory, per poi crearci un modello o semplicemente analizzarle successivamente.
-# È necessario scaricare più persone in una volta sola poiché facendo troppe volte
-# il login su facebook si rischia di essere bloccati.
+# This script can be used to download the likes of various people in a directory, 
+# so you can create a model or simply analyze them later. It needs to get multiple 
+# people at once because doing too many times the login on facebook you are 
+# likely to be blocked.
 
 
 from sys import argv
@@ -18,13 +18,12 @@ from fbwrapper import fbwrapper
 
 
 class LikesDownloader:	
-	""" Scarica i 'mi piace' di una o più persone"""
+	""" Download the likes for one or more persons """
 
 	def __init__(self, username, password, download_dir, profiles, fb_obj=None, overwrite_likes=False):
-		"""
-		Se fb_obj è diverso da None, verrà usato quello invece di fare un nuovo login
-		Profiles deve essere una *lista* di nickname (attenzione, deve esserlo 
-		anche quando ce ne fosse solo uno!)
+		""" 
+		If fb_obj is not None, it will be used instead of doing a new login.
+		Profiles *must be* a list of nicknames, even if there is only one.
 		"""
 		self.__fb = fb_obj if fb_obj != None else fbwrapper.Facebook(username, password)
 		self.__dir = download_dir
@@ -37,15 +36,15 @@ class LikesDownloader:
 	def __downloadLikes(self):
 		for profile in self.__profiles:
 			if (self.__overwrite_likes and isfile(self.__dir + "/" + profile)):
-				logging.warning("Il profilo %s non è stato controllato perché già esistente" % profile)
+				logging.warning("The profile '%s' has not been checked because it already exists" % profile)
 			else:
 				self.__write_likes(self.__fb.get_profile(profile).get_likes(), "%s/%s" % (self.__dir,  profile))
 		
 
 	def __write_likes(self, likes, fpath):
-		"""Scrive i 'mi piace' di un profilo in un file"""
+		""" Write the likes for one profile in a file """
 		if len(likes) == 0:
-			logging.warning("Il file '%s' non è stato scritto poiché vuoto" % fpath)
+			logging.warning("The file '%s' has not been written since it is empty" % fpath)
 			return
 
 		with open(fpath, "w") as f:	
@@ -58,7 +57,7 @@ if __name__ == "__main__":
 		username, password, download_dir = argv[1:4]
 		usernames = argv[4:]
 	except ValueError:
-		exit("Uso: download_likes.py username password download_dir url1...urlN")
+		exit("Usage: download_likes.py username password download_dir url1...urlN")
 
 	logging.getLogger().setLevel(logging.INFO)
 	LikesDownloader(username, password, download_dir, usernames)

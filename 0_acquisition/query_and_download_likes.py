@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 # Copyright 2016 Matteo Alessio Carrara <sw.matteoac@gmail.com>
 
-# Questo script esegue una ricerca su facebook, e scarica i 'mi piace' per le prime
-# N persone dei risultati
+# This script performs a search on facebook, and download likes for the first 
+# N persons of the results
 
 from sys import argv
 import logging
@@ -16,7 +16,7 @@ from download_likes import LikesDownloader
 try:
 	username, password, download_dir, query = argv[1:5]
 except ValueError:
-	exit("Uso: query_and_download_likes.py username password download_dir query [max_items]")
+	exit("Usage: query_and_download_likes.py username password download_dir query [max_items]")
 
 max_items = None if len(argv) < 6 else int(argv[5])
 
