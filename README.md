@@ -1,21 +1,17 @@
-# Cerca la ragazza ideale™ su facebook
+# Find the Ideal Girl on facebook
 
-## Funzionamento
+## Usage
 
-1. È necessario prima di tutto scaricare le informazioni delle migliori persone 
-   che si conoscono (acquisition)
-2. Successivamente devono essere elaborate per generare un modello di persona 
-   ideale (processing)
-3. A questo punto possono essere scaricati i profili di alcune persone sconosciute 
-   (acquisition)
-4. ...e valutati confrontandoli con il modello precedentemente creato (analysis)
+1. You must download the information of the best people that you know (acquisition)
+2. Then they must be processed to generate a model (processing)
+3. At this point you can download the profiles of some unknown people (acquisition)
+4. ... and weighed against the previously created model (analysis)
 
-__ATTENZIONE: l'utilizzo di facebook tramite bot e altri sistemi automatici è 
-esplicitamente vietato dal regolamento. Utilizzate questi strumenti a vostro rischio 
-e pericolo.__
+__WARNING: using Facebook with bots and other automated systems
+is explicitly prohibited by the TOS. Use them at your own risk.__
 
-## Per aggiornamenti
+## News & updates
 
-È possibile iscriversi al canale [telegram](https://telegram.me/matteoalessiocarrara) 
-od alla comoda pagina [facebook](https://www.facebook.com/matteoalessiocarrara).
+ * [Telegram](https://telegram.me/matteoalessiocarrara) 
+ * [Facebook](https://www.facebook.com/matteoalessiocarrara)
 
