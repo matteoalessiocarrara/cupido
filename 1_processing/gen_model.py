@@ -1,50 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright 2016 Matteo Alessio Carrara <sw.matteoac@gmail.com>
+# Copyright 2017 Matteo Alessio Carrara <sw.matteoac@gmail.com>
 
 from sys import argv, stdout
 import csv
 import logging
 
-
-def calc_likes_percent(files):
-	out = dict()
-	for lf in files:
-		with open(lf) as f:
-			for name in [l.strip('\n') for l in f.readlines()]:
-				out[name] = out[name] + 1 if name in out.keys() else 1
-	
-	for key in out:
-		out[key] = out[key]/float(len(files)) * 100
-	
-	return out
+from libmodel import *
 
 
-def main():
-	if ("-m" in argv) and ("-a" in argv):
-		model_likes_files = argv[argv.index("-m") + 1 : argv.index("-a")]
-		anti_likes_files = argv[argv.index("-a") + 1:]
-	else:
-		exit("Uso: -m likes1..likesN -a likes1..likesN")
-	
-	if len(model_likes_files) != len(anti_likes_files):
-		logging.warning("I modelli non sono in numero uguale")
-		
-	if (len(model_likes_files) == 0) or (len(anti_likes_files) == 0):
-		logging.warning("Mancano i file per un modello")
-
-	c = csv.writer(stdout)
-	model_likes_percent = calc_likes_percent(model_likes_files)
-	anti_likes_percent = calc_likes_percent(anti_likes_files)
-	for key in set(list(model_likes_percent.keys()) + list(anti_likes_percent.keys())):
-		v = 0
-		if key in model_likes_percent.keys():
-			v += model_likes_percent[key]
-		if key in anti_likes_percent.keys():
-			v -= anti_likes_percent[key]
-
-		c.writerow([v, key])
-
+if len(argv) < 2:
+	exit("Usage: gen_model.py file1...fileN")
 
 logging.getLogger().setLevel(logging.DEBUG)
-main()
+c = csv.writer(stdout)
+likes = Model(files=argv[1:]).get_likes()
+for like in likes:
+	# the number first and then the name because it is easier to split/sort
+	c.writerow([likes[like], like])
+	
