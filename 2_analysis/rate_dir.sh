@@ -1,9 +1,9 @@
 #!/bin/bash
-# Copyright 2016 Matteo Alessio Carrara <sw.matteoac@gmail.com>
+# Copyright 2016 - 2017 Matteo Alessio Carrara <sw.matteoac@gmail.com>
 
 
 if [[ $# -ne 2 ]]; then
-	echo "Uso: directory_confrontare modello_csv"
+	echo "Usage: directory_with_people_to_be_evaluated csv_model"
 	exit 1
 fi
 

@@ -15,7 +15,7 @@ def x(a, b, max_dec):
 try:
 	profile_likes_f, model_likes_f = argv[1:3]
 except ValueError:
-	exit("Uso: rate.py profile_likes model_likes")
+	exit("Usage: rate.py profile_likes model_likes")
 
 logging.getLogger().setLevel(logging.INFO)
 
